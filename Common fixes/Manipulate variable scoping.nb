@@ -1,0 +1,346 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Using Manipulate[] with global variables", "Title",
+ CellChangeTimes->{{3.692361879750255*^9, 3.6923619060070353`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"equation", " ", "=", " ", 
+   RowBox[{"x", "+", "y", "+", "5"}]}], ";"}], "\n", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{"equation", ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"y", ",", "0.5"}], "}"}], ",", "0", ",", "1"}], "}"}]}], 
+  "]"}], "\n", 
+ RowBox[{"Style", "[", 
+  RowBox[{"\"\<   WTF?   \>\"", ",", 
+   RowBox[{"FontSize", "\[Rule]", "30"}], ",", 
+   RowBox[{"FontWeight", "\[Rule]", "Bold"}]}], "]"}]}], "Code",
+ CellChangeTimes->{{3.692361921449923*^9, 3.692361963314342*^9}, {
+  3.6923620011365213`*^9, 3.6923620104977703`*^9}, {3.692362115365182*^9, 
+  3.6923621177765102`*^9}, {3.692362484230398*^9, 3.692362620313931*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`x$$ = 0, $CellContext`y$$ = 0.5, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`x$$], 0, 1}, {{
+       Hold[$CellContext`y$$], 0.5}, 0, 1}}, Typeset`size$$ = {
+    58., {3., 10.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`x$27766$$ = 
+    0, $CellContext`y$27767$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`x$$ = 0, $CellContext`y$$ = 0.5}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`x$$, $CellContext`x$27766$$, 0], 
+        Hold[$CellContext`y$$, $CellContext`y$27767$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> $CellContext`equation, 
+      "Specifications" :> {{$CellContext`x$$, 0, 1}, {{$CellContext`y$$, 0.5},
+          0, 1}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{252., {71., 78.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{
+  3.692361964577137*^9, 3.69236201095111*^9, 3.6923624926321898`*^9, {
+   3.6923625319141006`*^9, 3.6923626208847027`*^9}}],
+
+Cell[BoxData[
+ StyleBox["\<\"   WTF?   \"\>",
+  StripOnInput->False,
+  FontSize->30,
+  FontWeight->Bold]], "Output",
+ CellChangeTimes->{
+  3.692361964577137*^9, 3.69236201095111*^9, 3.6923624926321898`*^9, {
+   3.6923625319141006`*^9, 3.692362620932193*^9}}]
+}, Open  ]],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6923624980541687`*^9, 3.692362499223641*^9}}],
+
+Cell["\<\
+This issue often comes up when using Manipulate[] to tune parameters in a \
+large equation.\
+\>", "Text",
+ CellChangeTimes->{{3.6923619721358747`*^9, 3.692361980097303*^9}, {
+   3.692362019835785*^9, 3.6923620773753967`*^9}, {3.692362420583181*^9, 
+   3.6923624665671663`*^9}, 3.69236263644785*^9}],
+
+Cell[CellGroupData[{
+
+Cell["Explanation", "Section",
+ CellChangeTimes->{{3.692362641604628*^9, 3.692362643659213*^9}}],
+
+Cell["\<\
+Essentially, Manipulate[] creates temporary variables for each of the things \
+you are manipulating that are only available inside the Manipulate itself. \
+That means the \"x\" in the first line and the one in the Manipulate aren't \
+actually the same variable. The following three solutions can be useful in \
+different contexts.\
+\>", "Text",
+ CellChangeTimes->{{3.6923619721358747`*^9, 3.692361980097303*^9}, {
+   3.692362019835785*^9, 3.6923620773753967`*^9}, {3.692362420583181*^9, 
+   3.6923624665671663`*^9}, 3.69236263824057*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Fix 1: Replace external variables with the internal ones", "Section",
+ CellChangeTimes->{{3.6923606433327923`*^9, 3.6923606553785753`*^9}}],
+
+Cell["\<\
+This is the quick and simple solution I have used before when encountering \
+this problem. It is a little bit ugly (particularly if you need to change \
+which variables are being manipulated), but doesn\[CloseCurlyQuote]t require \
+many changes to the code.\
+\>", "Text",
+ CellChangeTimes->{{3.692361356306775*^9, 3.692361416563471*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"fix1`equation", " ", "=", " ", 
+   RowBox[{"x", "+", "y", "+", "5"}]}], ";"}], "\n", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"fix1`equation", "/.", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"x", "\[Rule]", "x2"}], ",", 
+      RowBox[{"y", "\[Rule]", "y2"}]}], "}"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x2", ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"y2", ",", "0", ",", "1"}], "}"}]}], "]"}]}], "Code",
+ CellChangeTimes->{{3.692361921449923*^9, 3.692361963314342*^9}, {
+  3.6923620011365213`*^9, 3.6923620104977703`*^9}, {3.692362115365182*^9, 
+  3.6923621489390574`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`x2$$ = 0., $CellContext`y2$$ = 
+    0.11800000000000001`, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`x2$$], 0, 1}, {
+      Hold[$CellContext`y2$$], 0, 1}}, Typeset`size$$ = {42., {0., 10.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`x2$25255$$ = 0, $CellContext`y2$25256$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`x2$$ = 0, $CellContext`y2$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`x2$$, $CellContext`x2$25255$$, 0], 
+        Hold[$CellContext`y2$$, $CellContext`y2$25256$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      ReplaceAll[
+       fix1`equation, {$CellContext`x -> $CellContext`x2$$, $CellContext`y -> \
+$CellContext`y2$$}], 
+      "Specifications" :> {{$CellContext`x2$$, 0, 1}, {$CellContext`y2$$, 0, 
+         1}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{258., {60., 67.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.692362149859624*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Fix 2: Move everything inside Manipulate", "Section",
+ CellChangeTimes->{{3.692360559372079*^9, 3.692360565824263*^9}, {
+  3.692360639294376*^9, 3.6923606393750267`*^9}}],
+
+Cell["\<\
+This solution is bad if the number of steps needed to build up the equation \
+is large, and can result in bad code duplication, but does work. It is also \
+less computationally efficient, making it less responsive.\
+\>", "Text",
+ CellChangeTimes->{{3.692361452950694*^9, 3.6923614742651577`*^9}, {
+  3.692362171550837*^9, 3.692362229126216*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"fix2`equation", " ", "=", " ", 
+     RowBox[{"x", "+", "y", "+", "5"}]}], ";", "\n", "fix2`equation"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"y", ",", "0", ",", "1"}], "}"}]}], "]"}]], "Code",
+ CellChangeTimes->{{3.692361921449923*^9, 3.692361963314342*^9}, {
+  3.6923620011365213`*^9, 3.6923620104977703`*^9}, {3.692362115365182*^9, 
+  3.6923621489390574`*^9}, {3.692362203118272*^9, 3.69236220373741*^9}, {
+  3.692362330658362*^9, 3.69236233325315*^9}, {3.692362377432558*^9, 
+  3.692362380866622*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`x$$ = 0.164, $CellContext`y$$ = 0.296, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`x$$], 0, 1}, {
+      Hold[$CellContext`y$$], 0, 1}}, Typeset`size$$ = {34., {0., 10.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`x$25804$$ = 0, $CellContext`y$25805$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`x$$ = 0, $CellContext`y$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`x$$, $CellContext`x$25804$$, 0], 
+        Hold[$CellContext`y$$, $CellContext`y$25805$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> (fix2`equation = $CellContext`x$$ + $CellContext`y$$ + 5; 
+       fix2`equation), 
+      "Specifications" :> {{$CellContext`x$$, 0, 1}, {$CellContext`y$$, 0, 
+         1}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{252., {60., 67.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.692362204913411*^9, 3.692362334087482*^9, 
+  3.692362381209746*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Fix 3: Inject the solution into the Manipulate", "Section",
+ CellChangeTimes->{{3.6923609711650248`*^9, 3.692360982457366*^9}}],
+
+Cell["\<\
+This is a really cool solution using the ReplaceAll operator (->) to inject \
+the equation inside of the Manipulate[]. If you are manipulating lots of \
+variables, it is the cleanest solution I have seen.\
+\>", "Text",
+ CellChangeTimes->{{3.692361479395864*^9, 3.692361558107359*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"fix3`equation", " ", "=", " ", 
+   RowBox[{"x", "+", "y", "+", "5"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Manipulate", "[", 
+   RowBox[{"temporaryvariable", ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "0", ",", "1"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"y", ",", "0", ",", "1"}], "}"}]}], "]"}], "/.", 
+  RowBox[{"temporaryvariable", "\[Rule]", "fix3`equation"}]}]}], "Code",
+ CellChangeTimes->{{3.692361921449923*^9, 3.692361963314342*^9}, {
+  3.6923620011365213`*^9, 3.6923620104977703`*^9}, {3.692362115365182*^9, 
+  3.6923621489390574`*^9}, {3.692362299636381*^9, 3.6923623982160482`*^9}}],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`x$$ = 0.064, $CellContext`y$$ = 0., 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`x$$], 0, 1}, {
+      Hold[$CellContext`y$$], 0, 1}}, Typeset`size$$ = {42., {0., 10.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`x$25970$$ = 0, $CellContext`y$25971$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`x$$ = 0, $CellContext`y$$ = 0}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`x$$, $CellContext`x$25970$$, 0], 
+        Hold[$CellContext`y$$, $CellContext`y$25971$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> 
+      5 + $CellContext`x$$ + $CellContext`y$$, 
+      "Specifications" :> {{$CellContext`x$$, 0, 1}, {$CellContext`y$$, 0, 
+         1}}, "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{252., {60., 67.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.692362335777616*^9, 3.692362401398782*^9}}]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{"\"\<Manipulate variable scoping.pdf\>\"", ",", 
+    RowBox[{"EvaluationNotebook", "[", "]"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.692362668969245*^9, 3.6923626930702887`*^9}, {
+  3.6923627389285793`*^9, 3.692362750216144*^9}}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{822, 911},
+WindowMargins->{{167, Automatic}, {65, Automatic}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (July 28, 2016)",
+StyleDefinitions->"Default.nb"
+]
+
