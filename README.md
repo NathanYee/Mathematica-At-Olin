@@ -1,2 +1,1 @@
 # Mathematica-At-Olin
-In Olin's curriculum, we often use Matlab as our go to glorified calculator. In the pursuit of a less archaic more user friendly experience, a few students began using Mathematica. This has gone smoothly except for the fact that we rely solely on Mathematica's documentation, friends, and stack exchange as resources for learning.  What we are missing is help from the teachers. The purpose of this repository is to curate knowledge of how to use Mathematica as a replacement for Matlab in Olin's curriculum.
