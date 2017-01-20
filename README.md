@@ -8,13 +8,6 @@ Mathematica tips and tricks by and for Olin students
 - [](#)
 
 
-
-
-
-
-
-
-
 <div id='Install'/>
 ## Install
 http://wikis.olin.edu/it/doku.php?id=mathematica&s[]=mathematica
