@@ -17,4 +17,4 @@ http://wikis.olin.edu/it/doku.php?id=mathematica&s[]=mathematica
 
 <div id='Auto Save'/>
 ### Auto Save
-http://mathematica.stackexchange.com/questions/13997/is-there-a-notebook-autosave-frequency-configuration
+Preferences -> Advanced --> Open Option Inspector  --> Notebook Options  ---> NotebookAutoSave
